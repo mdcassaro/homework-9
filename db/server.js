@@ -16,7 +16,8 @@ var notes = [
 
 ]
 
-app.get("*", function(req, res) {
+//Routes
+app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"));
   });
   
@@ -51,9 +52,14 @@ app.get("*", function(req, res) {
     // This works because of our body parsing middleware
     var newNote = req.body;
   
-    // Using a RegEx Pattern to remove spaces from newCharacter
-    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    newNote.routeName = newNote.name.replace(/\s+/g, "").toLowerCase();
+    app.post("/api/id", function(req, res) {
+        // Empty out the arrays of data
+        tableData.length = 0;
+        waitListData.length = 0;
+    
+        res.json({ ok: true });
+      });
+  
   
     console.log(newNote);
   
@@ -62,6 +68,7 @@ app.get("*", function(req, res) {
     res.json(newNote);
   });
 
+  //Listener
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
